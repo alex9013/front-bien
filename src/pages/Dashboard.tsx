@@ -56,8 +56,6 @@ export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
-  // UI states
-  const [showSearch, setShowSearch] = useState(false);
 
   // editing inline states
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -403,7 +401,7 @@ export default function Dashboard() {
         </div>
 
         <div className={`estado-conexion ${isOnline ? "online" : "offline"}`}>
-          {isOnline ? "🟢 " : "🔴 "}
+          {isOnline ? "ONLINE 🟢 " : "OFFLINNE 🔴 "}
         </div>
 
        <button className="btn danger" onClick={logout}>
@@ -447,29 +445,30 @@ export default function Dashboard() {
             </div>
           </form>
         </section>
-
-        {/* SEARCH + FILTERS (section separada) */}
-        <section className="controls-section" style={{ marginTop: 14, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-          <div className="search-box" style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button
-              title="Buscar"
-              className="btn"
-              onClick={() => setShowSearch((s) => !s)}
-              type="button"
-            >
-              🔍
-            </button>
-            {showSearch && (
-              <input
-                className="search"
-                placeholder="Buscar…"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                autoFocus
-                style={{ minWidth: 220 }}
-              />
-            )}
-          </div>
+{/* SEARCH + FILTERS (section separada) */}
+<section
+  className="controls-section"
+  style={{
+    marginTop: 14,
+    display: "flex",
+    gap: 12,
+    alignItems: "center",
+    flexWrap: "wrap",
+  }}
+>
+  <div
+    className="search-box"
+    style={{ display: "flex", gap: 8, alignItems: "center" }}
+  >
+    <input
+      className="search"
+      placeholder="Buscar…"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      style={{ minWidth: 220 }}
+    />
+  </div>
+</section>
 
           <div className="filters-section" style={{ display: "flex", gap: 8 }}>
             <button className={filter === "all" ? "chip active" : "chip"} onClick={() => setFilter("all")} type="button">
@@ -482,7 +481,7 @@ export default function Dashboard() {
               Hechas
             </button>
           </div>
-        </section>
+        
 
         {/* LIST */}
         {loading ? (
@@ -522,7 +521,8 @@ export default function Dashboard() {
 {/* 🚨 ÍCONO DE NUBE PENDIENTE 🚨 */}
                                 {isSyncPending(t._id) && (
                                   <span className="sync-pending-icon" title="Pendiente de sincronizar al servidor">
-                                    ☁️
+                                    🕒
+
                                   </span>
                                 )}
                                 {/* ... el resto del código ... */}
